@@ -16,3 +16,16 @@
 .app__headerImage{
   height: 50px;
 }
+
+.app__singup{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  text-align: center;
+  height: 200px;
+  justify-content: center;
+}
+
+.app__singup Input{
+  margin: 7px;
+}
