@@ -11,10 +11,13 @@
   padding: 15px;
   border-bottom: 1px solid lightgray;
   object-fit: contain;
+  display: flex;
+  justify-content: space-between;
 }
 
 .app__headerImage{
   height: 50px;
+  object-fit: contain;
 }
 
 .app__singup{
@@ -29,3 +32,12 @@
 .app__singup Input{
   margin: 7px;
 }
+
+.app_posts{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  /* centrado sin align-items que modificaba tamaño de imagenes */
+  margin: 1em 25%;
+}
+

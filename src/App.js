@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Post from './Post';
 import {db,auth} from './firebase';
-import "firebase/compat/auth"
-import "firebase/compat/firestore"
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button'
+import Button from '@mui/material/Button';
 import { Input } from '@mui/material';
+import ImageUpload from './ImageUpload';
+// import InstagramEmbed from 'react-instagram-embed';
 
 const style = {
   position: 'absolute',
@@ -50,7 +52,7 @@ function App() {
   }, [user, username]);
 
   useEffect(()=>{
-    db.collection("posts").onSnapshot(snapshot => {
+    db.collection("posts").orderBy("timestamp","desc").onSnapshot(snapshot => {
         setPost(snapshot.docs.map(doc => ({
           id: doc.id, 
           post: doc.data()
@@ -87,14 +89,6 @@ function App() {
 
   return (
     <div className="app">
-      {user ? (
-        <Button onClick={()=>auth.signOut()}>Cerrar Sesión</Button>
-        ):(
-        <div className="app_loginContainer">
-          <Button onClick={() => setOpenSignIn (true)}>Iniciar Sesión</Button>
-          <Button onClick={() => setOpen (true)}>Registarse</Button>
-        </div>
-      )}
 
         {/*MODAL REGISTRARSE*/}
 
@@ -172,16 +166,54 @@ function App() {
 
 
         <div className="app__header">
-          <img className="app__headerImage" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png" alt="Logo Instragram"/>
-        </div>
+          <img className="app__headerImage" 
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/800px-Instagram_logo.svg.png" 
+          alt="Logo Instragram"
+          />
 
+          {user ? (
+            <Button onClick={()=>auth.signOut()}>Cerrar Sesión</Button>
+            ):(
+            <div className="app_loginContainer">
+              <Button onClick={() => setOpenSignIn (true)}>Iniciar Sesión</Button>
+              <Button onClick={() => setOpen (true)}>Registarse</Button>
+            </div>
+          )}
+        </div>
+            
+        <div className="app_posts">
         {
           posts.map(({id, post}) => (
-              <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
+              <Post key={id} postId={id} user={user} username={post.username} caption={post.caption} imageUrl={post.imageUrl}/>
           ))
         }
+        </div>
+
+        {/* DEPRECATED
+        {/* <InstagramEmbed
+          url='https://instagr.am/p/Zw9o4/'
+          clientAccessToken='123|456'
+          maxWidth={320}
+          hideCaption={false}
+          containerTagName='div'
+          protocol=''
+          injectScript
+          onLoading={() => {}}
+          onSuccess={() => {}}
+          onAfterRender={() => {}}
+          onFailure={() => {}}
+        />
+        </div> */} 
+
+        {user?.displayName ? (
+            <ImageUpload username={user.displayName}/>
+        ): (
+            <h2>Debes iniciar sesión para postear!</h2>
+        )}
     </div>
+    
   );
+  console.log("usuario a ver"+user.displayName);
 }
 
 export default App;
