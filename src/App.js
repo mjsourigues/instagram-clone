@@ -204,16 +204,15 @@ function App() {
           onFailure={() => {}}
         />
         </div> */} 
-
-        {user?.displayName ? (
-            <ImageUpload username={user.displayName}/>
-        ): (
-            <h2>Debes iniciar sesión para postear!</h2>
-        )}
+        <div className="app__log">
+          {user?.displayName ? (
+              <ImageUpload username={user.displayName}/>
+          ): (
+            <center><h2>Debes iniciar sesión para postear!</h2></center>
+          )}
+        </div>
     </div>
-    
   );
-  console.log("usuario a ver"+user.displayName);
 }
 
 export default App;

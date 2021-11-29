@@ -61,6 +61,7 @@ function Post({postId, user, username, caption, imageUrl}) {
             </div>
                         
             {/* Formulario comentario en post */}
+            {user && (
             <form className="post__commentBox">
                 <input 
                     className="post__input" 
@@ -78,6 +79,7 @@ function Post({postId, user, username, caption, imageUrl}) {
                     Postear 👌 
                 </button>
             </form>
+            )}
         </div>
     )
 }

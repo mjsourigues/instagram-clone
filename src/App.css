@@ -7,6 +7,9 @@
 }
 
 .app__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: white;
   padding: 15px;
   border-bottom: 1px solid lightgray;
@@ -39,5 +42,10 @@
   flex-direction: column;
   /* centrado sin align-items que modificaba tamaño de imagenes */
   margin: 1em 25%;
+}
+
+.app__log{
+  padding-bottom: 30px;
+  color: rgb(147, 147, 148);
 }
 
